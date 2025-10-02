@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Menu } from "lucide-react"; // instead of HiMenu
 
 const navItems = [
-  { id: 1, name: "Home", link: "/" },
+  { id: 1, name: "Home", link: "/dashboard" },
   { id: 2, name: "About Us", link: "/about" },
   { id: 3, name: "Services", link: "/services" },
   { id: 4, name: "Contact Us", link: "/contact" },
@@ -54,12 +54,10 @@ const Header = () => {
             variant="outline"
             className="rounded-full bg-[#f2e7dc] text-gray-800 hover:bg-[#e6dacd]"
           >
-            <Link to='/signin'>            Log In
-</Link>
+            <Link to="/signin"> Log In</Link>
           </Button>
           <Button className="rounded-full bg-[#2c3e50] text-white hover:bg-[#1a252f]">
-            <Link to='/signup'>            Create Account
-</Link>
+            <Link to="/signup"> Create Account</Link>
           </Button>
         </div>
 
@@ -97,13 +95,14 @@ const Header = () => {
               {/* Auth Buttons */}
               <div className="mt-6 flex flex-col space-y-3">
                 <Button
+                asChild
                   variant="outline"
                   className="rounded-full bg-[#f2e7dc] text-gray-800 hover:bg-[#e6dacd]"
                 >
-                  Log In
+                 <Link to="/signin">Log In</Link>
                 </Button>
-                <Button className="rounded-full bg-[#2c3e50] text-white hover:bg-[#1a252f]">
-                  Create Account
+                <Button asChild className="rounded-full bg-[#2c3e50] text-white hover:bg-[#1a252f]">
+                 <Link to="/signup">Create Account</Link>
                 </Button>
               </div>
 

@@ -65,7 +65,7 @@ const MentalWellnessDashboard = () => {
         </Card>
 
         {/* Journal Section */}
-        <Card className="bg-white border-0 shadow-md">
+        <Card className="bg-[#eadfce] border-0 shadow-md">
           <CardContent className="p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">
               Share your thoughts...
@@ -131,7 +131,7 @@ const MentalWellnessDashboard = () => {
               Professional help is just a click away
             </p>
             <Button
-              className="bg-[#38485C] text-white hover:bg-gray-700"
+              className="cursor-pointer bg-[#38485C] text-white hover:bg-gray-700"
               onClick={() => navigation.navigate("/therapist")}>
               Connect Now
             </Button>

@@ -1,5 +1,10 @@
 import React from "react";
 import SupportImg from "../../assets/Support.png";
+import { Link } from "react-router-dom";
+import Image1 from "../../assets/Landing1.png";
+import Image2 from "../../assets/Landing2.png";
+import Image3 from "../../assets/Landing3.png";
+import Image4 from "../../assets/Landing4.png";
 
 const Home = () => {
   return (
@@ -15,7 +20,7 @@ const Home = () => {
             space where you can pause, reflect and reconnect with yourself.
           </p>
           <button className="bg-[#2c3e50] text-white px-4 py-2 rounded-full hover:bg-[#1a252f] mt-10">
-            Create Account
+           <Link to="/signup">Create Account</Link>
           </button>
         </div>
       </section>
@@ -84,12 +89,12 @@ const Home = () => {
             {/* Top row: two equal images */}
             <div className="flex gap-4">
               <img
-                src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6"
+                src={Image1}
                 alt="top-1"
                 className="w-1/2 h-36 sm:h-44 object-cover rounded-xl"
               />
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692"
+                src={Image2}
                 alt="top-2"
                 className="w-1/2 h-36 sm:h-44 object-cover rounded-xl"
               />
@@ -98,12 +103,12 @@ const Home = () => {
             {/* Bottom row: one tall + one short */}
             <div className="flex gap-4">
               <img
-                src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
+                src={Image3}
                 alt="bottom-left"
                 className="w-1/2 h-56 sm:h-72 object-cover rounded-xl"
               />
               <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb"
+                src={Image4}
                 alt="bottom-right"
                 className="w-1/2 h-28 sm:h-36 object-cover rounded-xl self-end"
               />

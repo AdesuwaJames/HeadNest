@@ -3,11 +3,12 @@ import { useLocation } from "react-router-dom";
 import Logo2 from "../../assets/NewLogo.png";
 
 const navItems = [
-  { id: "home", label: "Home", icon: "🏠", url: "/dashboard" },
-  { id: "journal", label: "Journal", icon: "📔", url: "/journal" },
-  { id: "community", label: "Community", icon: "👥", url: "/community" },
-  { id: "therapist", label: "Therapist", icon: "👨‍⚕️", url: "/therapist" },
-  { id: "settings", label: "Settings", icon: "⚙️", url: "/settings" },
+  { id: "home", label: "Home", url: "/dashboard" },
+  { id: "journal", label: "Journal", url: "/journal" },
+  { id: "community", label: "Community", url: "/community" },
+  { id: "therapist", label: "Therapist", url: "/therapist" },
+  { id: "settings", label: "Settings", url: "/settings" },
+  { id: "tracker", label: "Mood Tracker", url: "/tracker" },
 ];
 
 const SidebarNav = ({ isOpen, setIsOpen }) => {
@@ -32,12 +33,7 @@ const SidebarNav = ({ isOpen, setIsOpen }) => {
             className="w-32 transition-opacity duration-300"
           />
         )}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-lg hover:bg-[#d8cab3] transition-colors"
-          title={isOpen ? "Collapse sidebar" : "Expand sidebar"}>
-          {isOpen ? "◀" : "▶"}
-        </button>
+       
       </div>
 
       {/* Navigation */}
@@ -53,7 +49,7 @@ const SidebarNav = ({ isOpen, setIsOpen }) => {
                   : "text-gray-700 hover:text-gray-900 hover:bg-[#e3d7c4]"
               } ${isOpen ? "space-x-3" : "justify-center"}`}
               title={!isOpen ? item.label : ""}>
-              <span className="text-xl w-6 text-center">{item.icon}</span>
+             
               {isOpen && (
                 <span className="text-sm font-medium transition-opacity duration-300">
                   {item.label}
@@ -68,7 +64,7 @@ const SidebarNav = ({ isOpen, setIsOpen }) => {
       {isOpen && (
         <div className="p-4 border-t border-[#d8cab3]">
           <div className="text-xs text-gray-500 text-center">
-            © 2024 Headnest. All rights reserved.
+            © 2025 Headnest. All rights reserved.
           </div>
         </div>
       )}
