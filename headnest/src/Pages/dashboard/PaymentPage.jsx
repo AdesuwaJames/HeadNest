@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import DashboardLayout from "./DashboardLayout";
+import TransferCard from "./TransferCard";
 import { useState } from "react";
 
 const paymentMethods = ["Card", "Transfer", "E-wallets"];
@@ -13,6 +14,18 @@ const PaymentPage = () => {
   const handlePay = () => {
     if (!selectedPayment) {
       alert("Please select a payment method");
+      return;
+    }
+     // 🔹 Navigate to transfer page if Transfer is selected
+    if (selectedPayment === "Transfer") {
+      navigate("/payment-transfercard", {
+        state: {
+          therapistName: state?.therapistName,
+          sessionTime: state?.sessionTime,
+          note: state?.note,
+          amount: "$20"
+        }
+      });
       return;
     }
     // 🔹 Integrate payment gateway here

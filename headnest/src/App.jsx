@@ -11,6 +11,7 @@ import TherapistList from "./Pages/dashboard/Therapist";
 import BookingPage from "./Pages/dashboard/BookingPage";
 import PaymentPage from "./Pages/dashboard/PaymentPage";
 import ThankYouPage from "./Pages/dashboard/ThankYouPage";
+import TransferCard from "./Pages/dashboard/TransferCard";
 
 function App() {
   return (
@@ -92,6 +93,15 @@ function App() {
           </SidebarProvider>
         }
       />
+      <Route
+        path="/payment-transfercard"
+        element={
+          <SidebarProvider>
+            <TransferCard />
+          </SidebarProvider>
+        }
+      />
+
       <Route
         path="/thank-you"
         element={

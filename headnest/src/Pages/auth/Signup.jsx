@@ -39,7 +39,7 @@ const Register = () => {
 
       // ✅ Call backend API
       const response = await axios.post(
-        "https://headnest-api.onrender.com/api/user/auth/register",
+        "https://headnest-api-0yjf.onrender.com",
         { email, password }
       );
 
