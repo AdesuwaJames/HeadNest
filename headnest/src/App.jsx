@@ -1,6 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./components/Pages/home/home";
-import EditProfile from "./components/Pages/EditProfile/edit-profile";
+import { Routes, Route } from "react-router-dom";
+import { BlankLayout, DefaultLayout } from "./layout";
+import Home from "./components/Pages/Home/Home";
+import Login from "./components/Pages/auth/Signin";
+import Register from "./components/Pages/auth/Signup";
+import Welcome from "./components/Pages/auth/Welcome";
+import MentalWellnessDashboard from "./components/Pages/dashboard/HonePage";
+import { SidebarProvider } from "./Components/ui/sidebar";
+import NameChoice from "./Components/Pages/auth/NameChoice";
+import TherapistList from "./Components/Pages/dashboard/Therapist";
+import BookingPage from "./Components/Pages/dashboard/BookingPage";
+import PaymentPage from "./Components/Pages/dashboard/PaymentPage";
+import ThankYouPage from "./Components/Pages/dashboard/ThankYouPage";
+import EditProfile from "./Components/Pages/EditProfile/edit-profile";
 import Settings from "./components/Pages/settings/setting";
 import Chat from "./components/Pages/group-chat/group-chat";
 import PrivacyPolicy from "./components/Pages/privacyPolicy/privacyPolicy";
@@ -12,20 +23,125 @@ import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Default route is now Home */}
-        <Route path="/" element={<Home />} /> 
-        <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/journal" element={<JournalScreen />} />
-        <Route path="/community" element={<CommunitySelection />} />
-        <Route path="/therapy-chat" element={<TherapyChat />} />
-        <Route path="/therapist" element={<TherapistProfile />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      {/* Public Routes */}
+      <Route
+        path="/"
+        element={
+          <DefaultLayout>
+            <Home />
+          </DefaultLayout>
+        }
+      />
+
+      <Route
+        path="/signin"
+        element={
+          <BlankLayout>
+            <Login />
+          </BlankLayout>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <BlankLayout>
+            <Register />
+          </BlankLayout>
+        }
+      />
+      <Route
+        path="/welcome"
+        element={
+          <BlankLayout>
+            <Welcome />
+          </BlankLayout>
+        }
+      />
+      <Route
+        path="/name"
+        element={
+          <BlankLayout>
+            <NameChoice />
+          </BlankLayout>
+        }
+      />
+
+      {/* Dashboard & Main App Routes */}
+      <Route
+        path="/dashboard"
+        element={
+          <SidebarProvider>
+            <MentalWellnessDashboard />
+          </SidebarProvider>
+        }
+      />
+      <Route
+        path="/therapist"
+        element={
+          <SidebarProvider>
+            <TherapistList />
+          </SidebarProvider>
+        }
+      />
+
+      {/* Therapist Dynamic Profile */}
+      <Route
+        path="/therapist/:id"
+        element={
+          <SidebarProvider>
+            <TherapistProfile />
+          </SidebarProvider>
+        }
+      />
+
+      {/* Booking & Payment Flow */}
+      <Route
+        path="/booking/:id"
+        element={
+          <SidebarProvider>
+            <BookingPage />
+          </SidebarProvider>
+        }
+      />
+      <Route
+        path="/payment"
+        element={
+          <SidebarProvider>
+            <PaymentPage />
+          </SidebarProvider>
+        }
+      />
+      <Route
+        path="/thank-you"
+        element={
+          <SidebarProvider>
+            <ThankYouPage />
+          </SidebarProvider>
+        }
+      />
+
+      {/* Other Pages */}
+      <Route path="/edit-profile" element={<EditProfile />} />
+      <Route path="/chat" element={<Chat />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/journal" element={<JournalScreen />} />
+      <Route path="/community" element={<CommunitySelection />} />
+      <Route path="/therapy-chat" element={<TherapyChat />} />
+
+      {/* 404 Page */}
+      <Route
+        path="*"
+        element={
+          <DefaultLayout>
+            <div className="min-h-screen flex items-center justify-center">
+              <h1 className="text-2xl font-bold">404 - Page Not Found</h1>
+            </div>
+          </DefaultLayout>
+        }
+      />
+    </Routes>
   );
 }
 

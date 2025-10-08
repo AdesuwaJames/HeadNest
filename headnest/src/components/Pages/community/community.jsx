@@ -1,55 +1,60 @@
-import React, { useState } from "react";
-import { MessageCircle } from "lucide-react";
+// src/pages/community/Community.jsx
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../../sidebar";
+import { MessageCircle } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faBars } from "@fortawesome/free-solid-svg-icons";  
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import Sidebar from "../../../components/sidebar";
+import DashboardLayout from "../dashboard/DashboardLayout";
 
 const communities = [
   {
     name: "Anxiety Coping Circle",
-    description:
-      "This is a safe space to talk to others like you and share struggles related to general well-being.",
+    description: "A safe space to talk to others and share struggles.",
     path: "/community/anxiety-coping-circle",
   },
   {
     name: "Relief Coping Circle",
-    description:
-      "Connect with people managing anxiety, share coping strategies, and find support.",
+    description: "Connect with people managing anxiety and stress.",
     path: "/community/relief-coping-circle",
   },
   {
     name: "Mindful Coping Circle",
-    description:
-      "A peaceful space dedicated to mindfulness, meditation, and quiet reflection practices.",
+    description: "For mindfulness, meditation, and calm reflection.",
     path: "/community/mindful-coping-circle",
   },
 ];
 
 export default function Community() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
-  const [sidebarOpen, setSidebarOpen] = useState(false); // ✅ added state here
 
-  return (
+  // Detect mobile screen
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Page content (used both in mobile and desktop)
+  const PageContent = (
     <div className="flex min-h-screen bg-[#f7f7f7] text-[#2d3a4a] font-sans">
-      {/* Sidebar */}
+      {/* Sidebar (toggleable on mobile) */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      {/* Mobile Toggle Button */}
-     <button
-      className="md:hidden fixed top-4 left-4 z-50 bg-[#38485C] text-white p-2 rounded-md"
-      onClick={() => setSidebarOpen(!sidebarOpen)}
+      {/* Mobile Sidebar Toggle Button */}
+      <button
+        className="md:hidden fixed top-4 left-4 z-50 bg-[#38485C] text-white p-2 rounded-md"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
       >
-      <FontAwesomeIcon icon={sidebarOpen ? faTimes : faBars} />
-     </button>
+        <FontAwesomeIcon icon={sidebarOpen ? faTimes : faBars} />
+      </button>
 
-      {/* Main */}
+      {/* Main Section */}
       <main className="flex-1 flex flex-col items-center pt-12 pb-12 px-4 md:px-8 md:ml-[220px] w-full">
-        <div className="md:hidden w-full text-center mb-8">
-          <h1 className="text-3xl font-extrabold text-[#3b4b5a]">Community</h1>
-        </div>
-
-        <h2 className="text-3xl font-bold mb-10 text-[#3b4b5a]">
+        <h2 className="text-3xl font-bold mb-10 text-[#3b4b5a] text-center">
           Join a Support Community
         </h2>
 
@@ -57,10 +62,10 @@ export default function Community() {
           {communities.map((c) => (
             <div
               key={c.name}
-              className="flex flex-col sm:flex-row items-center bg-white rounded-2xl p-6 gap-6 shadow-xl border border-gray-100 transition-transform duration-300 hover:scale-[1.01] hover:shadow-2xl"
+              className="flex flex-col sm:flex-row items-center bg-white rounded-2xl p-6 gap-6 shadow-xl border border-gray-100 hover:scale-[1.01] hover:shadow-2xl transition-all duration-300"
             >
               {/* Icon */}
-              <div className="w-24 h-24 bg-[#3b4b5a] rounded-full flex items-center justify-center flex-shrink-0 shadow-inner">
+              <div className="w-24 h-24 bg-[#3b4b5a] rounded-full flex items-center justify-center flex-shrink-0">
                 <MessageCircle className="w-10 h-10 text-white" strokeWidth={1.5} />
               </div>
 
@@ -69,8 +74,8 @@ export default function Community() {
                 <h3 className="text-xl font-bold text-[#3b4b5a] mb-1">{c.name}</h3>
                 <p className="text-gray-600 text-base mb-4">{c.description}</p>
                 <button
-                  className="w-full sm:w-60 py-3 bg-[#4e7bbf] text-white rounded-full text-lg font-semibold cursor-pointer transition-all duration-200 hover:bg-[#3d65a0] shadow-lg hover:shadow-xl transform active:scale-95"
-                  onClick={() => navigate(c.path)} // ✅ works now
+                  className="w-full sm:w-60 py-3 bg-[#4e7bbf] text-white rounded-full text-lg font-semibold hover:bg-[#3d65a0] transition-all duration-200 shadow-lg"
+                  onClick={() => navigate(c.path)}
                 >
                   Join Community
                 </button>
@@ -80,5 +85,12 @@ export default function Community() {
         </div>
       </main>
     </div>
+  );
+
+  // Render differently for mobile vs desktop
+  return isMobile ? (
+    <div className="flex flex-col min-h-screen bg-gray-50">{PageContent}</div>
+  ) : (
+    <DashboardLayout>{PageContent}</DashboardLayout>
   );
 }
