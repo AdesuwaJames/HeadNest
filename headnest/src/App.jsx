@@ -1,22 +1,30 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { BlankLayout, DefaultLayout } from "./layout";
-import Home from "./Pages/Home/Home";
-import Login from "./Pages/auth/Signin";
-import Register from "./Pages/auth/Signup";
-import Welcome from "./Pages/auth/Welcome";
-import MentalWellnessDashboard from "./Pages/dashboard/HonePage";
+import Home from "./components/Pages/Home/Home";
+import Login from "./components/Pages/auth/Signin";
+import Register from "./components/Pages/auth/Signup";
+import Welcome from "./components/Pages/auth/Welcome";
+import MentalWellnessDashboard from "./components/Pages/dashboard/HonePage";
 import { SidebarProvider } from "./Components/ui/sidebar";
-import NameChoice from "./Pages/auth/NameChoice";
-import TherapistList from "./Pages/dashboard/Therapist";
-import BookingPage from "./Pages/dashboard/BookingPage";
-import PaymentPage from "./Pages/dashboard/PaymentPage";
-import ThankYouPage from "./Pages/dashboard/ThankYouPage";
-import TransferCard from "./Pages/dashboard/TransferCard";
+import NameChoice from "./Components/Pages/auth/NameChoice";
+import TherapistList from "./Components/Pages/dashboard/Therapist";
+import BookingPage from "./Components/Pages/dashboard/BookingPage";
+import PaymentPage from "./Components/Pages/dashboard/PaymentPage";
+import ThankYouPage from "./Components/Pages/dashboard/ThankYouPage";
+import EditProfile from "./Components/Pages/EditProfile/edit-profile";
+import Settings from "./components/Pages/settings/setting";
+import Chat from "./components/Pages/group-chat/group-chat";
+import PrivacyPolicy from "./components/Pages/privacyPolicy/privacyPolicy";
+import JournalScreen from "./components/Pages/Journal/journalScreen";
+import CommunitySelection from "./components/Pages/community/community";
+import TherapyChat from "./components/Pages/therapychat/therapychat";
+import TherapistProfile from "./components/Pages/TherapistProfile/TherapistProfile";
+import "./App.css";
 
 function App() {
   return (
     <Routes>
-      {/* Default Layout pages */}
+      {/* Public Routes */}
       <Route
         path="/"
         element={
@@ -26,7 +34,6 @@ function App() {
         }
       />
 
-      {/* Blank Layout pages (Authentication pages) */}
       <Route
         path="/signin"
         element={
@@ -60,7 +67,7 @@ function App() {
         }
       />
 
-      {/* Dashboard routes with Sidebar layout */}
+      {/* Dashboard & Main App Routes */}
       <Route
         path="/dashboard"
         element={
@@ -77,6 +84,18 @@ function App() {
           </SidebarProvider>
         }
       />
+
+      {/* Therapist Dynamic Profile */}
+      <Route
+        path="/therapist/:id"
+        element={
+          <SidebarProvider>
+            <TherapistProfile />
+          </SidebarProvider>
+        }
+      />
+
+      {/* Booking & Payment Flow */}
       <Route
         path="/booking/:id"
         element={
@@ -110,6 +129,15 @@ function App() {
           </SidebarProvider>
         }
       />
+
+      {/* Other Pages */}
+      <Route path="/edit-profile" element={<EditProfile />} />
+      <Route path="/chat" element={<Chat />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/journal" element={<JournalScreen />} />
+      <Route path="/community" element={<CommunitySelection />} />
+      <Route path="/therapy-chat" element={<TherapyChat />} />
 
       {/* 404 Page */}
       <Route

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../Components/ui/button";
+import { Button } from "./../Components/ui/button";
 import {
   Sheet,
   SheetContent,
