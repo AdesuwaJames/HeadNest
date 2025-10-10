@@ -46,7 +46,7 @@ const Home = () => {
           <div className="bg-sky-200 rounded-xl p-16 shadow-md md:col-span-1">
             <h3 className="font-semibold text-lg mb-2 text-center">Your journal</h3>
             <p className="text-gray-700 leading-7">
-              TTrack your thoughts, feelings and see your growth over time, all
+              Track your thoughts, feelings and see your growth over time, all
               in a private, judgement-free journal.
             </p>
           </div>

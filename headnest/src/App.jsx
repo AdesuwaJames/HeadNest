@@ -4,6 +4,7 @@ import { BlankLayout, DefaultLayout } from "./layout";
 import Home from "./components/Pages/Home/Home";
 import Login from "./components/Pages/auth/Signin";
 import Register from "./components/Pages/auth/Signup";
+import GoogleCallback from "./Components/Pages/auth/GoogleCallback";
 import Welcome from "./components/Pages/auth/Welcome";
 import MentalWellnessDashboard from "./components/Pages/dashboard/HonePage";
 import { SidebarProvider } from "./Components/ui/sidebar";
@@ -13,6 +14,7 @@ import BookingPage from "./Components/Pages/dashboard/BookingPage";
 import PaymentPage from "./Components/Pages/dashboard/PaymentPage";
 import ThankYouPage from "./Components/Pages/dashboard/ThankYouPage";
 import EditProfile from "./Components/Pages/EditProfile/edit-profile";
+import TransferCard from "./Components/Pages/dashboard/TransferCard";
 import Settings from "./components/Pages/settings/setting";
 import PrivacyPolicy from "./components/Pages/privacyPolicy/privacyPolicy";
 import JournalScreen from "./components/Pages/Journal/journalScreen";
@@ -118,6 +120,15 @@ function App() {
         }
       />
       <Route
+        path="/payment-transfercard"
+        element={
+          <SidebarProvider>
+            <TransferCard />
+          </SidebarProvider>
+        }
+      />
+
+      <Route
         path="/thank-you"
         element={
           <SidebarProvider>
@@ -125,10 +136,11 @@ function App() {
           </SidebarProvider>
         }
       />
+      <Route path="/auth/google/callback" element={<GoogleCallback />} />
 
       {/* Other Pages */}
       <Route path="/edit-profile" element={<EditProfile />} />
-      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/journal" element={<JournalScreen />} />
 

@@ -208,15 +208,6 @@ export default function PrivacyPolicy() {
             </li>
           </ul>
         </section>
-
-        {/* Action Button: Matches the style of the Join button in CommunitySelection */}
-        <button 
-          aria-label="Accept privacy policy"
-          className={`mt-6 ${primaryButtonBg} text-white px-8 py-3 rounded-full text-lg font-semibold transition-all duration-200 hover:bg-[#3d65a0] shadow-lg hover:shadow-xl transform active:scale-[0.98] w-full md:w-auto`}
-          onClick={() => console.log('User Accepted Policy')}
-        >
-          ACCEPT
-        </button>
       </div>
     </div>
   );
