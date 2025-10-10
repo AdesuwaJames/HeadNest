@@ -5,7 +5,7 @@ import Login from "./Components/Pages/auth/Signin";
 import Register from "./Components/Pages/auth/Signup";
 import Welcome from "./Components/Pages/auth/Welcome";
 import MentalWellnessDashboard from "./Components/Pages/dashboard/HonePage";
-import { SidebarProvider } from "./components/ui/sidebar";
+import { SidebarProvider } from "./Components/ui/sidebar";
 import NameChoice from "./Components/Pages/auth/NameChoice";
 import TherapistList from "./Components/Pages/dashboard/Therapist";
 import BookingPage from "./Components/Pages/dashboard/BookingPage";
