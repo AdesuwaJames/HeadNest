@@ -1,3 +1,4 @@
+// src/App.jsx
 import { Routes, Route } from "react-router-dom";
 import { BlankLayout, DefaultLayout } from "./layout";
 import Home from "./components/Pages/Home/Home";
@@ -13,12 +14,16 @@ import PaymentPage from "./Components/Pages/dashboard/PaymentPage";
 import ThankYouPage from "./Components/Pages/dashboard/ThankYouPage";
 import EditProfile from "./Components/Pages/EditProfile/edit-profile";
 import Settings from "./components/Pages/settings/setting";
-import Chat from "./components/Pages/group-chat/group-chat";
 import PrivacyPolicy from "./components/Pages/privacyPolicy/privacyPolicy";
 import JournalScreen from "./components/Pages/Journal/journalScreen";
+
+// 🧠 Community & Chat Imports
 import CommunitySelection from "./components/Pages/community/community";
+import Chat from "./components/Pages/group-chat/group-chat";
+
 import TherapyChat from "./components/Pages/therapychat/therapychat";
 import TherapistProfile from "./components/Pages/TherapistProfile/TherapistProfile";
+
 import "./App.css";
 
 function App() {
@@ -123,11 +128,14 @@ function App() {
 
       {/* Other Pages */}
       <Route path="/edit-profile" element={<EditProfile />} />
-      <Route path="/chat" element={<Chat />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/journal" element={<JournalScreen />} />
+
+      {/* 🧠 Community & Chat Routing */}
       <Route path="/community" element={<CommunitySelection />} />
+      <Route path="/community/:communityName" element={<Chat />} />
+
       <Route path="/therapy-chat" element={<TherapyChat />} />
 
       {/* 404 Page */}

@@ -91,7 +91,6 @@ const Settings = () => {
             lg:max-h-[95vh]
           "
         >
-          {/* Removed Back Button Completely */}
 
           <h2 className="text-2xl md:text-3xl font-extrabold text-[#2c3e50] mb-8 text-center">
             Settings
@@ -99,7 +98,8 @@ const Settings = () => {
 
           {/* Account Section */}
           <div className="mb-10">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500 mb-2 flex items-center" style={{
+            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500 mb-2 flex items-center" 
+            style={{
               fontFamily: "Inter",
               fontWeight: "600",
               fontStyle: "Bold",
@@ -109,7 +109,8 @@ const Settings = () => {
             }}>
               <FontAwesomeIcon
                 icon={faUser}
-                className="mr-2 text-base w-4 h-4" style={{
+                className="mr-2 text-base w-4 h-4" 
+                style={{
                   fontFamily: "Inter",
                   fontWeight: "600",
                   fontStyle: "Semi Bold",
@@ -246,7 +247,6 @@ const Settings = () => {
     </div>
   );
 
-  // Show DashboardLayout only on desktop, hardcoded sidebar and hamburger on mobile
   return isMobile ? content : <DashboardLayout>{content}</DashboardLayout>;
 };
 

@@ -11,17 +11,14 @@ const communities = [
   {
     name: "Anxiety Coping Circle",
     description: "A safe space to talk to others and share struggles.",
-    path: "/community/anxiety-coping-circle",
   },
   {
     name: "Relief Coping Circle",
     description: "Connect with people managing anxiety and stress.",
-    path: "/community/relief-coping-circle",
   },
   {
     name: "Mindful Coping Circle",
     description: "For mindfulness, meditation, and calm reflection.",
-    path: "/community/mindful-coping-circle",
   },
 ];
 
@@ -38,10 +35,10 @@ export default function Community() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Page content (used both in mobile and desktop)
+  // Page content
   const PageContent = (
     <div className="flex min-h-screen bg-[#f7f7f7] text-[#2d3a4a] font-sans">
-      {/* Sidebar (toggleable on mobile) */}
+      {/* Sidebar */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Mobile Sidebar Toggle Button */}
@@ -73,9 +70,14 @@ export default function Community() {
               <div className="flex-1 flex flex-col items-center sm:items-start text-center sm:text-left">
                 <h3 className="text-xl font-bold text-[#3b4b5a] mb-1">{c.name}</h3>
                 <p className="text-gray-600 text-base mb-4">{c.description}</p>
+
                 <button
                   className="w-full sm:w-60 py-3 bg-[#4e7bbf] text-white rounded-full text-lg font-semibold hover:bg-[#3d65a0] transition-all duration-200 shadow-lg"
-                  onClick={() => navigate(c.path)}
+                  onClick={() =>
+                    navigate(
+                      `/community/${c.name.toLowerCase().replace(/\s+/g, "-")}`
+                    )
+                  }
                 >
                   Join Community
                 </button>
