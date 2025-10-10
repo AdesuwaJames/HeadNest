@@ -53,14 +53,6 @@ const Signin = () => {
         <p className="text-gray-600 text-sm md:text-base mt-2">
           Breathe in... exhale slowly...
         </p>
-
-        {/* Back button
-      <Button
-        onClick={() => navigate(-1)} // Go back
-        className="bg-[#F9F9F9] border border-[#38485C] text-[#38485C] hover:text-white hover:bg-[#38485C] h-8 w-8 p-0 rounded-full"
-      >
-        <ChevronLeft className="h-4 w-4" />
-      </Button>*/}
       </div>
 
       {/* Right Section (Card Centered) */}

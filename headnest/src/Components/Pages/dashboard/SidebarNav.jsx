@@ -8,7 +8,7 @@ const navItems = [
   { id: "community", label: "Community", url: "/community" },
   { id: "therapist", label: "Therapist", url: "/therapist" },
   { id: "settings", label: "Settings", url: "/settings" },
-  { id: "tracker", label: "Mood Tracker", url: "/tracker" },
+  { id: "tracker", label: "Mood Tracker", url: "/mood-tracker" },
 ];
 
 const SidebarNav = ({ isOpen, setIsOpen }) => {

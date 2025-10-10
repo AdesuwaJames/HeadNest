@@ -21,6 +21,7 @@ import JournalScreen from "./components/Pages/Journal/journalScreen";
 import CommunitySelection from "./components/Pages/community/community";
 import TherapyChat from "./components/Pages/therapychat/therapychat";
 import TherapistProfile from "./components/Pages/TherapistProfile/TherapistProfile";
+import MoodTracker from "./Components/Pages/dashboard/MoodTracker";
 import "./App.css";
 
 function App() {
@@ -79,6 +80,15 @@ function App() {
         }
       />
       <Route
+        path="/mood-tracker"
+        element={
+          <SidebarProvider>
+            <MoodTracker />
+          </SidebarProvider>
+        }
+      />
+
+      <Route
         path="/therapist"
         element={
           <SidebarProvider>
@@ -131,7 +141,6 @@ function App() {
           </SidebarProvider>
         }
       />
-      <Route path="/auth/google/callback" element={<GoogleCallback />} />
 
       {/* Other Pages */}
       <Route path="/edit-profile" element={<EditProfile />} />

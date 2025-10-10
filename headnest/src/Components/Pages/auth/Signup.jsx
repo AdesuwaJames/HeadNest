@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { FaGoogle, FaApple } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import PrivacyPolicy from "@/components/Pages/privacyPolicy/privacyPolicy"; // 👈 import existing page
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -14,10 +14,10 @@ const Register = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showPolicyModal, setShowPolicyModal] = useState(false); // modal state
 
   const navigate = useNavigate();
 
-  // ✅ Validation helpers
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
   const validatePassword = (password) =>
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/.test(password);
@@ -32,60 +32,24 @@ const Register = () => {
     e.preventDefault();
     setError("");
 
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-
-    if (!validatePassword(password)) {
-      setError(
-        "Password must be at least 8 characters long and include letters, numbers, and special characters."
+    if (!validateEmail(email)) return setError("Please enter a valid email.");
+    if (!validatePassword(password))
+      return setError(
+        "Password must be at least 8 characters and include letters, numbers, and special characters."
       );
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
-
-    if (!agreePolicy) {
-      setError("You must agree to the Privacy Policy.");
-      return;
-    }
+    if (password !== confirmPassword) return setError("Passwords do not match.");
+    if (!agreePolicy) return setError("You must agree to the Privacy Policy.");
 
     try {
       setLoading(true);
-      const response = await axios.post(
-        "https://headnest-api-0yjf.onrender.com/api/user/auth/register",
-        { email, password }
-      );
 
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        // ✅ Clear inputs after success
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-        setAgreePolicy(false);
-        navigate("/welcome");
-      }
-    } catch (err) {
-      console.error("❌ Registration error:", err);
-      console.log("📥 Server response:", err.response?.data);
-      setError(
-        err.response?.data?.message ||
-          err.response?.data?.error ||
-          "Something went wrong. Please try again."
-      );
+      // 🚀 Temporarily skip backend and just navigate
+      localStorage.setItem("token", "dummy-token");
+      navigate("/welcome");
+
     } finally {
       setLoading(false);
     }
-  };
-
-  // ✅ Google Sign Up Redirect
-  const handleGoogleSignup = () => {
-    window.location.href = "https://headnest-api-0yjf.onrender.com/api/google";
   };
 
   return (
@@ -104,22 +68,16 @@ const Register = () => {
 
         <CardContent className="space-y-6">
           <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="email" className="sr-only">Email address</label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="johndoe@gmail.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
+            <Input
+              type="email"
+              placeholder="johndoe@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
             <div>
-              <label htmlFor="password" className="sr-only">Password</label>
               <Input
-                id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter a password"
                 value={password}
@@ -127,22 +85,18 @@ const Register = () => {
                 required
               />
               <p className="text-xs text-gray-500 mt-1">
-    Password must be at least 8 characters long and include letters, numbers, and 
-    special characters.
-  </p>
+                Password must be at least 8 characters long and include letters, numbers,
+                and special characters.
+              </p>
             </div>
 
-            <div>
-              <label htmlFor="confirmPassword" className="sr-only">Confirm Password</label>
-              <Input
-                id="confirmPassword"
-                type={showPassword ? "text" : "password"}
-                placeholder="Confirm password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
+            <Input
+              type={showPassword ? "text" : "password"}
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
 
             <label className="flex items-center space-x-2 text-sm text-gray-700">
               <input
@@ -154,19 +108,23 @@ const Register = () => {
               <span>Show password</span>
             </label>
 
+            {/* ✅ Modal trigger */}
             <label className="flex items-center space-x-2 text-sm text-gray-700">
               <input
                 type="checkbox"
                 checked={agreePolicy}
                 onChange={() => setAgreePolicy(!agreePolicy)}
                 className="cursor-pointer"
-                required
               />
               <span>
-                By checking this box, I agree to the{" "}
-                <Link to="/privacyPolicy" className="text-blue-600 underline">
+                I agree to the{" "}
+                <button
+                  type="button"
+                  onClick={() => setShowPolicyModal(true)}
+                  className="text-blue-600 underline"
+                >
                   Privacy Policy
-                </Link>
+                </button>
               </span>
             </label>
 
@@ -181,24 +139,42 @@ const Register = () => {
             </Button>
           </form>
 
-          {/* Social Sign Up */}
-          <div className="flex justify-center items-center gap-3">
+          {/* Social Sign Up (temporarily disabled) */}
+          <div className="flex justify-center items-center gap-3 mt-4">
             <div className="w-24 h-[1px] bg-gray-400"></div>
             <p className="text-gray-600 text-sm">Or sign up with</p>
             <div className="w-24 h-[1px] bg-gray-400"></div>
           </div>
 
-          <div className="flex space-x-4">
-            <Button
-              type="button"
-              onClick={handleGoogleSignup}
-              className="w-full bg-[#F9F9F9] border border-[#38485C] text-[#38485C] hover:bg-gray-200"
-            >
-              <FaGoogle className="curor-pointer text-[#38485C] hover:text-white transition" />
-            </Button>
-          </div>
+          <Button
+            type="button"
+            disabled
+            className="w-full bg-[#F9F9F9] border border-[#38485C] text-[#38485C] mt-2 opacity-50 cursor-not-allowed"
+          >
+            <FaGoogle />
+          </Button>
         </CardContent>
       </Card>
+
+      {/* 📝 Privacy Policy Modal */}
+      {showPolicyModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white max-w-3xl w-full rounded-lg shadow-lg p-6 relative">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">Privacy Policy</h2>
+              <button
+                onClick={() => setShowPolicyModal(false)}
+                className="text-gray-500 hover:text-gray-800"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="max-h-[70vh] overflow-y-auto text-sm text-gray-700 space-y-2">
+              <PrivacyPolicy />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
