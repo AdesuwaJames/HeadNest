@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { BlankLayout, DefaultLayout } from "./layout";
-import Home from "./components/Pages/Home/Home";
+import Home from "./components/Pages/home/home";
 import Login from "./components/Pages/auth/Signin";
 import Register from "./components/Pages/auth/Signup";
-import GoogleCallback from "./Components/Pages/auth/GoogleCallback";
 import Welcome from "./components/Pages/auth/Welcome";
 import MentalWellnessDashboard from "./components/Pages/dashboard/HonePage";
 import { SidebarProvider } from "./Components/ui/sidebar";
