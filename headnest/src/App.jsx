@@ -1,18 +1,18 @@
 import { Routes, Route } from "react-router-dom";
 import { BlankLayout, DefaultLayout } from "./layout";
 import Home from "./components/Pages/home/home";
-import Login from "./Components/Pages/auth/Signin";
-import Register from "./Components/Pages/auth/Signup";
-import Welcome from "./Components/Pages/auth/Welcome";
-import MentalWellnessDashboard from "./Components/Pages/dashboard/HonePage";
-import { SidebarProvider } from "./Components/ui/sidebar";
-import NameChoice from "./Components/Pages/auth/NameChoice";
-import TherapistList from "./Components/Pages/dashboard/Therapist";
-import BookingPage from "./Components/Pages/dashboard/BookingPage";
-import PaymentPage from "./Components/Pages/dashboard/PaymentPage";
-import ThankYouPage from "./Components/Pages/dashboard/ThankYouPage";
+import Login from "./components/Pages/auth/Signin";
+import Register from "./components/Pages/auth/Signup";
+import Welcome from "./components/Pages/auth/Welcome";
+import MentalWellnessDashboard from "./components/Pages/dashboard/HonePage";
+import { SidebarProvider } from "./components/ui/sidebar";
+import NameChoice from "./components/Pages/auth/NameChoice";
+import TherapistList from "./components/Pages/dashboard/Therapist";
+import BookingPage from "./components/Pages/dashboard/BookingPage";
+import PaymentPage from "./components/Pages/dashboard/PaymentPage";
+import ThankYouPage from "./components/Pages/dashboard/ThankYouPage";
 import EditProfile from "./components/Pages/EditProfile/edit-profile";
-import TransferCard from "./Components/Pages/dashboard/TransferCard";
+import TransferCard from "./components/Pages/dashboard/TransferCard";
 import Settings from "./components/Pages/settings/setting";
 import Chat from "./components/Pages/group-chat/group-chat";
 import PrivacyPolicy from "./components/Pages/privacyPolicy/privacyPolicy";
@@ -20,7 +20,7 @@ import JournalScreen from "./components/Pages/Journal/journalScreen";
 import CommunitySelection from "./components/Pages/community/community";
 import TherapyChat from "./components/Pages/therapychat/therapychat";
 import TherapistProfile from "./components/Pages/TherapistProfile/TherapistProfile";
-import MoodTracker from "./Components/Pages/dashboard/MoodTracker";
+import MoodTracker from "./components/Pages/dashboard/MoodTracker";
 import "./App.css";
 
 function App() {

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import Sidebar from "../../../components/sidebar";
+import Sidebar from "../../sidebar";
 import DashboardLayout from "../dashboard/DashboardLayout";
 
 const communities = [
