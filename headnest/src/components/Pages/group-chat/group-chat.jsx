@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import "./exit-confirm.css"; // (create this file for styling)
 
 export default function Chat() {
   const { communityName } = useParams();
@@ -9,6 +10,7 @@ export default function Chat() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [participants, setParticipants] = useState(["@A", "@B", "@C", "@D"]);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
   const chatEndRef = useRef(null);
 
   // Scroll to bottom on new message
@@ -30,7 +32,10 @@ export default function Chat() {
         { sender: "System", content: `${user} left the chat.` },
       ]);
     };
-  }, []);
+  },
+  
+  []);
+  
 
   // Anti-screenshot blur protection
   useEffect(() => {
@@ -71,36 +76,47 @@ export default function Chat() {
   };
 
   const handleExit = () => {
-    const confirmExit = window.confirm("Are you sure you want to exit the chat?");
-    if (confirmExit) {
-      setMessages([]);
-      navigate("/community");
-    }
+    setShowExitConfirm(true);
+  };
+
+  const confirmExit = () => {
+    setMessages([]);
+    navigate("/community");
   };
 
   return (
+    
     <div className="flex justify-center bg-[#f2f4f6] min-h-screen font-sans select-none relative">
-      {/* Transparent overlay (extra anti-screenshot layer) */}
-      <div
-        className="absolute inset-0 z-50 bg-transparent pointer-events-none"
-        style={{ backdropFilter: "none" }}
-      ></div>
+       
+      {/* Exit confirmation modal */}
+      {showExitConfirm && (
+        <div className="exit-modal-overlay">
+          <div className="exit-modal">
+            <p className="mb-4 font-semibold text-lg text-[#2e3b4e]">
+              Are you sure you want to exit the chat?
+            </p>
+            <div className="flex gap-4 justify-center">
+              <button
+                className="bg-[#2e3b4e] text-white px-4 py-2 rounded-full"
+                onClick={confirmExit}
+              >
+                Yes, Exit
+              </button>
+              <button
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded-full"
+                onClick={() => setShowExitConfirm(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
-      <div
-        id="chatContainer"
-        className="w-full max-w-[640px] flex flex-col bg-white border border-gray-300 rounded-md shadow-md h-screen relative z-10"
-      >
+      <div className="flex flex-col w-full max-w-3xl bg-white rounded-2xl shadow-lg overflow-hidden">
         {/* Header */}
-        <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200 h-[80px]">
-          <h2
-            className="text-lg font-semibold text-[#2e3b4e] capitalize"
-            style={{
-              fontFamily: "Inter",
-              fontWeight: "600",
-              fontSize: "24px",
-              lineHeight: "32px",
-            }}
-          >
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-[#fafafa]">
+          <h2 className="text-xl font-semibold text-[#2e3b4e]">
             {communityName?.replace(/-/g, " ") || "Coping Circle"}
           </h2>
           <button
