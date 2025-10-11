@@ -7,8 +7,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/temp_components/ui/sheet";
-import { Input } from "@/temp_components/ui/input";
+} from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
 import { Menu } from "lucide-react"; // instead of HiMenu
 
 const navItems = [

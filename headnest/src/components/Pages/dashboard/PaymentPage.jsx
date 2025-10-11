@@ -1,6 +1,6 @@
 // src/pages/PaymentPage.jsx
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "@/temp_components/ui/button";
+import { Button } from "@/components/ui/button";
 import DashboardLayout from "./DashboardLayout";
 import { useState, useEffect } from "react";
 import Sidebar from "../../sidebar";

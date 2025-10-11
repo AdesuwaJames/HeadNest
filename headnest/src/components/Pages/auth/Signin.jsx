@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FaGoogle, FaApple } from "react-icons/fa";
 import Logo2 from "../../../assets/NewLogo.png";
-import { Button } from "@/temp_components/ui/button";
-import { Input } from "@/temp_components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/temp_components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
