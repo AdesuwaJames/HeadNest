@@ -1,0 +1,18 @@
+/* exit-confirm.css */
+.exit-modal-overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background: rgba(44, 62, 80, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.exit-modal {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(44,62,80,0.18);
+  padding: 2rem 2.5rem;
+  min-width: 320px;
+  text-align: center;
+}
