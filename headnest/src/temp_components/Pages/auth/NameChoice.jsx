@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/temp_components/ui/input";
+import { Button } from "@/temp_components/ui/button";
+import { Card, CardContent } from "@/temp_components/ui/card";
 import { useNavigate } from "react-router-dom";
 
 const NameChoice = () => {

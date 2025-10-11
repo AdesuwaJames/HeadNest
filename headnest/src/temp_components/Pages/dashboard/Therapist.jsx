@@ -1,5 +1,5 @@
 // src/pages/TherapistList.jsx
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/temp_components/ui/card";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "./DashboardLayout";

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/temp_components/ui/button";
+import { ToggleGroup, ToggleGroupItem } from "@/temp_components/ui/toggle-group";
+import { RadioGroup, RadioGroupItem } from "@/temp_components/ui/radio-group";
+import { Label } from "@/temp_components/ui/label";
 import { Smile, Angry, Meh, SmileIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 const MentalWellnessOnboarding = () => {

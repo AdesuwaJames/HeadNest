@@ -1,9 +1,9 @@
 // src/pages/BookingPage.jsx
 import { useParams, useNavigate } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/temp_components/ui/card";
+import { Button } from "@/temp_components/ui/button";
 import { useState, useEffect } from "react";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/temp_components/ui/textarea";
 import DashboardLayout from "./DashboardLayout";
 import Sidebar from "../../sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

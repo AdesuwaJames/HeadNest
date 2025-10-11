@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/temp_components/ui/card";
+import { Button } from "@/temp_components/ui/button";
+import { Input } from "@/temp_components/ui/input";
+import { Badge } from "@/temp_components/ui/badge";
 import Sidebar from "../../sidebar";
 import DashboardLayout from "./DashboardLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
