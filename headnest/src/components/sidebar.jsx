@@ -46,7 +46,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         ">
           <Link
             to="/"
-            className={`font-[Inter] font-medium text-[32px] leading-[100%] 
+            className={`font-[Inter] font-medium text-[22px] leading-[100%] 
               tracking-[0%] align-middle w-[230px] h-[39px] md:w-[33%] rounded-r-[20px] ${
               isActive("/")
                 ? " bg-gray-400 text-[#2d3a4a]"
@@ -57,7 +57,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           </Link>
           <Link
             to="/journal"
-            className={`font-[Inter] font-medium text-[32px] leading-[100%] 
+            className={`font-[Inter] font-medium text-[22px] leading-[100%] 
               tracking-[0%] align-middle w-[230px] md:w-[43%] h-[39px] rounded-r-[20px] ${
               isActive("/journal")
                 ? " bg-gray-400 text-[#2d3a4a]"
@@ -68,7 +68,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           </Link>
           <Link
             to="/community"
-            className={`font-[Inter] font-medium text-[32px] leading-[100%] 
+            className={`font-[Inter] font-medium text-[22px] leading-[100%] 
               tracking-[0%] align-middle w-[230px] md:w-[53%] h-[39px] rounded-r-[20px] ${
               isActive("/community")
                 ? " bg-gray-400 text-[#2d3a4a]"
@@ -79,7 +79,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           </Link>
           <Link
             to="/therapist"
-            className={`font-[Inter] font-medium text-[32px] leading-[100%] 
+            className={`font-[Inter] font-medium text-[22px] leading-[100%] 
               tracking-[0%] align-middle w-[230px] md:w-[50%] h-[39px] rounded-r-[20px] ${
               isActive("/therapist")
                 ? " bg-gray-400 text-[#2d3a4a]"
@@ -90,7 +90,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           </Link>
           <Link
             to="/settings"
-            className={`font-[Inter] font-medium text-[32px] leading-[100%] 
+            className={`font-[Inter] font-medium text-[22px] leading-[100%] 
               tracking-[0%] align-middle w-[230px] md:w-[50%] h-[39px] rounded-r-[20px] ${
               isActive("/settings")
                 ? "bg-gray-400 text-[#2d3a4a]"
@@ -102,7 +102,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           </Link>
           <Link
             to="/tracker"
-            className={`font-[Inter] font-medium text-[32px] leading-[100%] 
+            className={`font-[Inter] font-medium text-[22px] leading-[100%] 
               tracking-[0%] align-middle w-[230px] md:w-[50%] h-[39px] rounded-r-[20px] ${
               isActive("/tracker")
                 ? "bg-gray-400 text-[#2d3a4a]"

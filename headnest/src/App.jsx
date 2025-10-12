@@ -143,7 +143,7 @@ function App() {
 
       {/* Other Pages */}
       <Route path="/edit-profile" element={<EditProfile />} />
-      <Route path="/chat" element={<Chat />} />
+      <Route path="/community/:communityName" element={<Chat />} />
       <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/journal" element={<JournalScreen />} />
