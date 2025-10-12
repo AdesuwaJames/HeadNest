@@ -24,6 +24,8 @@ import CommunitySelection from "./components/Pages/community/community";
 import TherapyChat from "./components/Pages/therapychat/therapychat";
 import TherapistProfile from "./components/Pages/TherapistProfile/TherapistProfile";
 import MoodTracker from "./components/Pages/dashboard/MoodTracker";
+import GoogleCallback from "./components/Pages/AuthCallback"
+import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 
 function App() {
@@ -76,9 +78,11 @@ function App() {
       <Route
         path="/dashboard"
         element={
+          <ProtectedRoute>
           <SidebarProvider>
             <MentalWellnessDashboard />
           </SidebarProvider>
+          </ProtectedRoute>
         }
       />
       <Route
@@ -155,6 +159,7 @@ function App() {
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/coming-soon" element={<ComingSoon />} />
       <Route path="/terms-of-service" element={<TermsOfService />} />
+      <Route path="/auth-callback" element={<GoogleCallback />} />
 
       {/* 404 Page */}
       <Route

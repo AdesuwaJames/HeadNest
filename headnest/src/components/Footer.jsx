@@ -46,11 +46,9 @@ export default function Footer() {
             <h3 className="font-semibold text-gray-800 mb-3">Resources</h3>
             <ul className="space-y-2 text-gray-600">
               <li>
-                <li>
                 <Link to="/coming-soon" className="hover:text-gray-800 transition">
                   Blog
                 </Link>
-              </li>
               </li>
               <li>
                 <Link to="/coming-soon" className="hover:text-gray-800">

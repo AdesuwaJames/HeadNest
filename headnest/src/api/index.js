@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "./config";
 
-// 📝 Example: Register a user
+//Register a user
 export const registerUser = async (userData) => {
   const response = await fetch(`${API_BASE_URL}/user/auth/register`, {
     method: "POST",
@@ -15,7 +15,7 @@ export const registerUser = async (userData) => {
   return response.json();
 };
 
-// 📝 Example: Login
+//Login
 export const loginUser = async (credentials) => {
   const response = await fetch(`${API_BASE_URL}/user/auth/login`, {
     method: "POST",
@@ -24,27 +24,21 @@ export const loginUser = async (credentials) => {
     },
     body: JSON.stringify(credentials),
   });
-  if (!response.ok) {
-    throw new Error("Login failed");
-  }
+if (!response.ok) {
+  const errorData = await response.json();
+  console.log(errorData);
+  throw new Error(errorData.message || "Login failed");
+}
   return response.json();
 };
 
-export const googleSignup = async (token) => {
-  const response = await fetch(`${API_BASE_URL}/google`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token }),
-  });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || "Google signup failed");
-  }
-  return response.json();
+
+// ✅ Google Signup/Login Redirect
+export const googleAuthRedirect = () => {
+  window.location.href = `${API_BASE_URL}/google`;
 };
+
 
 // 📝 Example: Fetch communities (GET)
 export const fetchCommunities = async () => {
@@ -54,3 +48,25 @@ export const fetchCommunities = async () => {
   }
   return response.json();
 };
+
+export const submitMoodCheckin = async (mood, note) => {
+  const token = localStorage.getItem("token"); // 👈 get the stored JWT
+
+  const response = await fetch(`${API_BASE_URL}/mood-checkin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`, // 👈 include token here
+    },
+    body: JSON.stringify({ mood, note }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.message || "Failed to submit mood check-in");
+  }
+
+  return response.json();
+};
+
+

@@ -8,6 +8,7 @@ import Sidebar from "../../sidebar";
 import DashboardLayout from "./DashboardLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { submitMoodCheckin } from "../../../api/index"; 
 
 const MentalWellnessDashboard = () => {
   const navigate = useNavigate();
@@ -41,11 +42,25 @@ const MentalWellnessDashboard = () => {
     setActiveFeeling(feeling.id);
   };
 
-  const handleJournalSubmit = (e) => {
-    e.preventDefault();
-    console.log("Journal entry:", journalEntry);
+  const handleJournalSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!activeFeeling) {
+    alert("Please select how you’re feeling first.");
+    return;
+  }
+
+  try {
+    await submitMoodCheckin(activeFeeling, journalEntry);
     setJournalEntry("");
-  };
+    setActiveFeeling(null);
+    navigate("/mood-tracker"); // 👈 This should work now
+  } catch (error) {
+    console.error("Mood check-in failed:", error);
+    alert(error.message || "Failed to save your mood entry");
+  }
+};
+
 
   const content = (
     <div className="w-full min-h-screen overflow-x-auto bg-gray-50">
@@ -102,18 +117,22 @@ const MentalWellnessDashboard = () => {
               <form onSubmit={handleJournalSubmit}>
                 <Input
                   type="text"
-                  disabled
                   placeholder="Write about your day..."
                   value={journalEntry}
                   onChange={(e) => setJournalEntry(e.target.value)}
                   className="mb-4"
                 />
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div className="flex flex-row justify-between items-start sm:items-center gap-3">
                   <Badge
                     variant="outline"
                     className="bg-indigo-100 text-indigo-800 select-none">
                     01 DAY
                   </Badge>
+                  <Button
+                    type="submit"
+                    className="bg-[#38485C] text-white hover:bg-gray-700 sm:w-auto">
+                    Save Entry
+                  </Button>
                   
                 </div>
               </form>

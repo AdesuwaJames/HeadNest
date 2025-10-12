@@ -89,18 +89,6 @@ const Sidebar = ({ isOpen, onClose }) => {
             Therapist
           </Link>
           <Link
-            to="/settings"
-            className={`font-[Inter] font-medium text-[32px] leading-[100%] 
-              tracking-[0%] align-middle w-[230px] md:w-[50%] h-[39px] rounded-r-[20px] ${
-              isActive("/settings")
-                ? "bg-gray-400 text-[#2d3a4a]"
-                : "text-[#38485C] hover:text-[#4e7bbf]"
-            }`}
-
-          >
-            Settings
-          </Link>
-          <Link
             to="/mood-tracker"
             className={`font-[Inter] font-medium text-[32px] leading-[100%] 
               tracking-[0%] align-middle w-[230px] md:w-[50%] h-[39px] rounded-r-[20px] ${
@@ -111,6 +99,18 @@ const Sidebar = ({ isOpen, onClose }) => {
 
           >
             Mood Tracker
+          </Link>
+          <Link
+            to="/settings"
+            className={`font-[Inter] font-medium text-[32px] leading-[100%] 
+              tracking-[0%] align-middle w-[230px] md:w-[50%] h-[39px] rounded-r-[20px] ${
+              isActive("/settings")
+                ? "bg-gray-400 text-[#2d3a4a]"
+                : "text-[#38485C] hover:text-[#4e7bbf]"
+            }`}
+
+          >
+            Settings
           </Link>
         </nav>
       </aside>

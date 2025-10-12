@@ -5,8 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import PrivacyPolicy from "@/components/Pages/privacyPolicy/privacyPolicy"; // 👈 import existing page
-import { registerUser } from "../../../api";
-import { googleSignup } from "../../../api";
+import { registerUser } from "../../../api/index";
+import { googleAuthRedirect } from "../../../api/index";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -23,7 +23,9 @@ const Register = () => {
 
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
   const validatePassword = (password) =>
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/.test(password);
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/.test(
+      password
+    );
 
   const isFormValid =
     validateEmail(email) &&
@@ -32,38 +34,38 @@ const Register = () => {
     agreePolicy;
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
+    e.preventDefault();
+    setError("");
 
-  if (!validateEmail(email)) return setError("Please enter a valid email.");
-  if (!validatePassword(password))
-    return setError(
-      "Password must be at least 8 characters and include letters, numbers, and special characters."
-    );
-  if (password !== confirmPassword) return setError("Passwords do not match.");
-  if (!agreePolicy) return setError("You must agree to the Privacy Policy.");
+    if (!validateEmail(email)) return setError("Please enter a valid email.");
+    if (!validatePassword(password))
+      return setError(
+        "Password must be at least 8 characters and include letters, numbers, and special characters."
+      );
+    if (password !== confirmPassword)
+      return setError("Passwords do not match.");
+    if (!agreePolicy) return setError("You must agree to the Privacy Policy.");
 
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    // ✅ Send data to backend
-    const response = await registerUser({ email, password });
+      // ✅ Send data to backend
+      const response = await registerUser({ email, password });
+      console.log("Signup response:", response);
+      // Assuming the backend returns a token or user object
+      if (response?.token) {
+        localStorage.setItem("token", response.token);
+      }
 
-    // Assuming the backend returns a token or user object
-    if (response?.token) {
-      localStorage.setItem("token", response.token);
+      // ✅ Navigate to welcome page after successful signup
+      navigate("/welcome");
+    } catch (err) {
+      console.error(err);
+      setError("Signup failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    // ✅ Navigate to welcome page after successful signup
-    navigate("/welcome");
-  } catch (err) {
-    console.error(err);
-    setError("Signup failed. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen mt-10 px-4">
@@ -98,8 +100,8 @@ const Register = () => {
                 required
               />
               <p className="text-xs text-gray-500 mt-1">
-                Password must be at least 8 characters long and include letters, numbers,
-                and special characters.
+                Password must be at least 8 characters long and include letters,
+                numbers, and special characters.
               </p>
             </div>
 
@@ -161,10 +163,15 @@ const Register = () => {
 
           <Button
             type="button"
-            disabled
-            className="w-full bg-[#F9F9F9] border border-[#38485C] text-[#38485C] mt-2 opacity-50 cursor-not-allowed"
+            onClick={() => {
+              setGoogleLoading(true);
+              googleAuthRedirect();
+            }}
+            className="w-full bg-[#F9F9F9] border border-[#38485C] text-[#38485C] mt-2 hover:bg-gray-100 flex items-center justify-center gap-2"
+            disabled={googleLoading}
           >
             <FaGoogle />
+            {googleLoading ? "Redirecting..." : "Sign up with Google"}
           </Button>
         </CardContent>
       </Card>
