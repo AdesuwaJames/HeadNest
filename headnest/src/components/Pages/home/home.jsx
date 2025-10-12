@@ -14,8 +14,8 @@ const Home = () => {
         {/* HERO SECTION */}
         <section className="w-full h-[85vh] flex flex-col items-center justify-center space-y-6 px-6">
           <div className="w-full md:w-[80%]">
-            <h1 className="text-4xl font-semibold">Quiet the world</h1>
-            <h1 className="text-4xl font-semibold mt-4">
+            <h1 className="text-4xl font-semibold text-[#38485C]">Quiet the world</h1>
+            <h1 className="text-4xl font-semibold mt-4 text-[#38485C]">
               Listen to the sound of your voice again
             </h1>
             <p className="max-w-lg mt-4 text-xs">
@@ -35,13 +35,13 @@ const Home = () => {
             alt="Support"
             className="w-full h-auto object-cover rounded-xl mb-8"
           />
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#38485C] text-center mb-8">
             Different tools, one goal: your peace of mind.
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-sky-200 rounded-xl p-8 md:p-16 shadow-md md:col-span-2">
-              <h3 className="font-semibold text-center text-lg mb-2">
+              <h3 className="font-semibold text-[#403F3F] text-center text-lg mb-2">
                 Care from real professionals
               </h3>
               <p className="text-gray-700 leading-7">
@@ -53,7 +53,7 @@ const Home = () => {
             </div>
 
             <div className="bg-sky-200 rounded-xl p-8 md:p-16 shadow-md md:col-span-1">
-              <h3 className="font-semibold text-lg mb-2 text-center">
+              <h3 className="font-semibold text-[#403F3F] text-lg mb-2 text-center">
                 Your journal
               </h3>
               <p className="text-gray-700 leading-7">
@@ -63,14 +63,14 @@ const Home = () => {
             </div>
 
             <div className="bg-sky-200 rounded-xl p-8 md:p-16 shadow-md md:col-span-1">
-              <h3 className="font-semibold text-lg mb-2">Track your moods</h3>
+              <h3 className="font-semibold text-[#403F3F] text-lg mb-2 text-center">Track your moods</h3>
               <p className="text-gray-700 leading-7">
                 Stay in touch with how you feel, one day at a time.
               </p>
             </div>
 
             <div className="bg-sky-200 rounded-xl p-8 md:p-16 shadow-md md:col-span-2">
-              <h3 className="font-semibold text-lg mb-2 text-center">
+              <h3 className="font-semibold text-[#403F3F] text-lg mb-2 text-center">
                 Connect without judgement
               </h3>
               <p className="text-gray-700 leading-7">
@@ -87,7 +87,7 @@ const Home = () => {
           <div className="max-w-6xl mx-auto px-6 lg:px-12 py-12 flex flex-col lg:flex-row items-start gap-10">
             {/* Left text */}
             <div className="flex-1">
-              <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-4">
+              <h2 className="text-2xl md:text-3xl font-semibold text-[#38485C] mb-4">
                 Take the first step towards a clearer mind
               </h2>
               <p className="text-gray-700 text-[15px] leading-7">

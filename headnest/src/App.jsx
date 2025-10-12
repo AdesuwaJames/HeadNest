@@ -4,6 +4,9 @@ import Home from "./components/Pages/home/home";
 import Login from "./components/Pages/auth/Signin";
 import Register from "./components/Pages/auth/Signup";
 import Welcome from "./components/Pages/auth/Welcome";
+import AboutUs from "./Components/Pages/about/AboutUs";
+import ComingSoon from "./Components/Pages/comingSoon";
+import TermsOfService from "./Components/Pages/legal/TermsOfService";
 import MentalWellnessDashboard from "./components/Pages/dashboard/HonePage";
 import { SidebarProvider } from "./components/ui/sidebar";
 import NameChoice from "./components/Pages/auth/NameChoice";
@@ -149,6 +152,9 @@ function App() {
       <Route path="/journal" element={<JournalScreen />} />
       <Route path="/community" element={<CommunitySelection />} />
       <Route path="/therapy-chat" element={<TherapyChat />} />
+      <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/coming-soon" element={<ComingSoon />} />
+      <Route path="/terms-of-service" element={<TermsOfService />} />
 
       {/* 404 Page */}
       <Route

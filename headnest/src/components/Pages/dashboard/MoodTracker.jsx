@@ -120,7 +120,7 @@ export default function MoodTracker() {
                 onClick={() => navigate("/dashboard")}
                 className="bg-slate-700 hover:bg-slate-800 text-white font-semibold px-12 py-4 rounded-full transition-colors shadow-md"
               >
-                Back to homepage
+                Back to Home
               </button>
             </div>
           </div>
