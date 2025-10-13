@@ -49,13 +49,7 @@ const Register = () => {
     try {
       setLoading(true);
 
-      // ✅ Send data to backend
-      const response = await registerUser({ email, password });
-      console.log("Signup response:", response);
-      // Assuming the backend returns a token or user object
-      if (response?.token) {
-        localStorage.setItem("token", response.token);
-      }
+     
 
       // ✅ Navigate to welcome page after successful signup
       navigate("/welcome");
@@ -148,9 +142,8 @@ const Register = () => {
             <Button
               type="submit"
               className="w-full bg-[#38485C] text-white hover:bg-gray-700"
-              disabled={!isFormValid || loading}
             >
-              {loading ? "Signing up..." : "SIGN UP"}
+             Sign Up
             </Button>
           </form>
 
@@ -171,7 +164,7 @@ const Register = () => {
             disabled={googleLoading}
           >
             <FaGoogle />
-            {googleLoading ? "Redirecting..." : "Sign up with Google"}
+            {googleLoading ? "Redirecting..." : "Continue with Google"}
           </Button>
         </CardContent>
       </Card>
