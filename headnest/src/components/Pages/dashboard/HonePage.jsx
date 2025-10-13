@@ -8,8 +8,6 @@ import Sidebar from "../../sidebar";
 import DashboardLayout from "./DashboardLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { submitMoodCheckin } from "../../../api/index";
-import { API_BASE_URL } from "../../../api/config"; 
 
 const MentalWellnessDashboard = () => {
   const navigate = useNavigate();
@@ -17,7 +15,6 @@ const MentalWellnessDashboard = () => {
   const [journalEntry, setJournalEntry] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [userName, setUserName] = useState("");
 
   const feelings = [
     { id: "happy", label: "Happy", emoji: "😊", color: "bg-yellow-100" },
@@ -32,28 +29,6 @@ const MentalWellnessDashboard = () => {
     { id: 2, name: "Coping Circle", members: "8.7k", color: "bg-indigo-500" },
     { id: 3, name: "Mindful Haven", members: "15.2k", color: "bg-teal-500" },
   ];
-  useEffect(() => {
-    const fetchUserName = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) return;
-
-      try {
-        const res = await fetch(`${API_BASE_URL}/user/auth/anonymous-name`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        const data = await res.json();
-        if (res.ok) {
-          // 👇 If anonymousName exists, use it, otherwise fallback to normal name
-          setUserName(data.anonymousName || data.name || "User");
-        }
-      } catch (error) {
-        console.error("Failed to fetch user name:", error);
-      }
-    };
-
-    fetchUserName();
-  }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
@@ -66,29 +41,22 @@ const MentalWellnessDashboard = () => {
     setActiveFeeling(feeling.id);
   };
 
-  const handleJournalSubmit = async (e) => {
-  e.preventDefault();
+  const handleJournalSubmit = (e) => {
+    e.preventDefault();
 
-  if (!activeFeeling) {
-    alert("Please select how you’re feeling first.");
-    return;
-  }
+    if (!activeFeeling) {
+      alert("Please select how you’re feeling first.");
+      return;
+    }
 
-  try {
-    await submitMoodCheckin(activeFeeling, journalEntry);
+    // ✅ Simply navigate to mood tracker — no backend
     setJournalEntry("");
     setActiveFeeling(null);
-    navigate("/mood-tracker"); // 👈 This should work now
-  } catch (error) {
-    console.error("Mood check-in failed:", error);
-    alert(error.message || "Failed to save your mood entry");
-  }
-};
-
+    navigate("/mood-tracker");
+  };
 
   const content = (
     <div className="w-full min-h-screen overflow-x-auto bg-gray-50">
-      {/* Min width wrapper so very small screens scroll horizontally */}
       <div className="min-w-[400px] sm:min-w-[500px] md:min-w-[640px] lg:min-w-0 flex">
         {/* Sidebar for mobile */}
         {isMobile && (
@@ -112,7 +80,7 @@ const MentalWellnessDashboard = () => {
           <Card className="w-full bg-white border-0 shadow-md">
             <CardContent className="p-6">
               <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 mb-4">
-                Good Morning, A <span className="text-indigo-600">👋</span>
+                Good Morning, <span className="text-indigo-600">👋</span>
               </h2>
               <p className="text-gray-600 mb-6">How are you feeling today?</p>
 
@@ -157,42 +125,41 @@ const MentalWellnessDashboard = () => {
                     className="bg-[#38485C] text-white hover:bg-gray-700 sm:w-auto">
                     Save Entry
                   </Button>
-                  
                 </div>
               </form>
             </CardContent>
           </Card>
 
           {/* Communities */}
-         <Card className="w-full bg-white border-0 shadow-md">
-      <CardHeader>
-        <CardTitle className="text-base sm:text-lg">
-          Join a support community
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {communities.map((community) => (
-          <div
-            key={community.id}
-            className="flex items-center p-3 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer"
-            onClick={() => navigate(`/community/${community.id}`)} // 👈 Navigate on click
-          >
-            <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center ${community.color} text-white mr-3`}>
-              {community.name.charAt(0)}
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-800 text-sm sm:text-base">
-                {community.name}
-              </h4>
-              <p className="text-xs text-gray-500">
-                {community.members} members
-              </p>
-            </div>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
+          <Card className="w-full bg-white border-0 shadow-md">
+            <CardHeader>
+              <CardTitle className="text-base sm:text-lg">
+                Join a support community
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {communities.map((community) => (
+                <div
+                  key={community.id}
+                  className="flex items-center p-3 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => navigate(`/community/${community.id}`)}
+                >
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center ${community.color} text-white mr-3`}>
+                    {community.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-800 text-sm sm:text-base">
+                      {community.name}
+                    </h4>
+                    <p className="text-xs text-gray-500">
+                      {community.members} members
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
 
           {/* Therapist CTA */}
           <Card className="w-full bg-white border-0 shadow-md">
@@ -205,7 +172,8 @@ const MentalWellnessDashboard = () => {
               </p>
               <Button
                 className="cursor-pointer bg-[#38485C] text-white hover:bg-gray-700 w-full sm:w-auto"
-                onClick={() => (window.location.href = "/therapist")}>
+                onClick={() => (window.location.href = "/therapist")}
+              >
                 Connect Now
               </Button>
             </CardContent>

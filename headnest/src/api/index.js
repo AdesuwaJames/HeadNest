@@ -88,24 +88,4 @@ export const fetchCommunities = async () => {
   return response.json();
 };
 
-export const submitMoodCheckin = async (mood, note) => {
-  const token = localStorage.getItem("token"); // 👈 get the stored JWT
-
-  const response = await fetch(`${API_BASE_URL}/mood-checkin`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // 👈 include token here
-    },
-    body: JSON.stringify({ mood, note }),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || "Failed to submit mood check-in");
-  }
-
-  return response.json();
-};
-
 
