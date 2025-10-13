@@ -74,7 +74,7 @@ export default function TherapistList() {
                   <img
                     src={t.image}
                     alt={t.name}
-                    className="w-full h-48 object-cover rounded"
+                     className="w-1/2 aspect-[4/3] sm:aspect-[3/2] md:aspect-[4/3] lg:aspect-[16/9] object-cover rounded-lg"
                   />
                   <div className="mt-3">
                     <p className="font-medium text-gray-800">{t.name}</p>
