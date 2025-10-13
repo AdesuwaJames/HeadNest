@@ -3,50 +3,36 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { validateAnonymousName, setAnonymousName } from "../../../api/index";
 
 const NameChoice = () => {
   const [newName, setNewName] = useState("");
   const [confirmName, setConfirmName] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  if (!newName || !confirmName) {
-    alert("Please fill in both fields");
-    return;
-  }
+    if (!newName || !confirmName) {
+      alert("Please fill in both fields");
+      return;
+    }
 
-  if (newName !== confirmName) {
-    alert("Names do not match");
-    return;
-  }
+    if (newName !== confirmName) {
+      alert("Names do not match");
+      return;
+    }
 
-  try {
-    // Step 1: Validate name with backend
-    await validateAnonymousName(newName);
-
-    // Step 2: Save name to backend
-    await setAnonymousName(newName);
-
-    // Optional: Save locally for immediate UI use
+    // ✅ Save locally for use in dashboard
     localStorage.setItem("anonymousName", newName);
 
-    // Step 3: Navigate to dashboard
+    // ✅ Navigate to dashboard
     navigate("/dashboard");
-  } catch (error) {
-    console.error("Anonymous name error:", error);
-    alert(error.message || "Failed to set anonymous name");
-  }
-};
-
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <Card className="w-full max-w-3xl rounded-2xl shadow-md">
         <CardContent className="p-10">
-          {/* Inner container narrower than card */}
           <div className="max-w-lg mx-auto space-y-10">
             {/* Heading */}
             <div className="text-start space-y-3">
@@ -75,23 +61,24 @@ const NameChoice = () => {
                 onChange={(e) => setConfirmName(e.target.value)}
                 className="rounded-full py-3 text-base border border-gray-900"
               />
+
               {/* Greeting */}
               <div className="text-start">
                 <p className="text-base text-gray-700 mt-5 font-semibold">
                   Nice to meet you,{" "}
-                  <span className="font-semibold">
-                    {newName || ""}
-                  </span>
+                  <span className="font-semibold">{newName || ""}</span>
                 </p>
               </div>
+
               {/* Submit button */}
               <div className="flex justify-center">
                 <Button
                   type="submit"
-                  className="w-full rounded-full bg-gray-800 hover:bg-gray-700 py-6 text-base">
+                  className="w-full rounded-full bg-gray-800 hover:bg-gray-700 py-6 text-base"
+                >
                   SUBMIT
                 </Button>
-              </div>{" "}
+              </div>
             </form>
           </div>
         </CardContent>
