@@ -3,32 +3,44 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { validateAnonymousName, setAnonymousName } from "../../../api/index";
 
 const NameChoice = () => {
   const [newName, setNewName] = useState("");
   const [confirmName, setConfirmName] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Basic validation example
-    if (!newName || !confirmName) {
-      alert("Please fill in both fields");
-      return;
-    }
+  if (!newName || !confirmName) {
+    alert("Please fill in both fields");
+    return;
+  }
 
-    if (newName !== confirmName) {
-      alert("Names do not match");
-      return;
-    }
+  if (newName !== confirmName) {
+    alert("Names do not match");
+    return;
+  }
 
-    // Do something with newName (e.g., save to context or localStorage)
+  try {
+    // Step 1: Validate name with backend
+    await validateAnonymousName(newName);
+
+    // Step 2: Save name to backend
+    await setAnonymousName(newName);
+
+    // Optional: Save locally for immediate UI use
     localStorage.setItem("anonymousName", newName);
 
-    // Navigate to another page after submit
-    navigate("/dashboard"); // change '/welcome' to your target route
-  };
+    // Step 3: Navigate to dashboard
+    navigate("/dashboard");
+  } catch (error) {
+    console.error("Anonymous name error:", error);
+    alert(error.message || "Failed to set anonymous name");
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
@@ -68,7 +80,7 @@ const NameChoice = () => {
                 <p className="text-base text-gray-700 mt-5 font-semibold">
                   Nice to meet you,{" "}
                   <span className="font-semibold">
-                    {newName ? newName.charAt(0) : ""}
+                    {newName || ""}
                   </span>
                 </p>
               </div>

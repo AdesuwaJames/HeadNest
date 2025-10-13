@@ -8,7 +8,8 @@ import Sidebar from "../../sidebar";
 import DashboardLayout from "./DashboardLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { submitMoodCheckin } from "../../../api/index"; 
+import { submitMoodCheckin } from "../../../api/index";
+import { API_BASE_URL } from "../../../api/config"; 
 
 const MentalWellnessDashboard = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const MentalWellnessDashboard = () => {
   const [journalEntry, setJournalEntry] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [userName, setUserName] = useState("");
 
   const feelings = [
     { id: "happy", label: "Happy", emoji: "😊", color: "bg-yellow-100" },
@@ -30,6 +32,28 @@ const MentalWellnessDashboard = () => {
     { id: 2, name: "Coping Circle", members: "8.7k", color: "bg-indigo-500" },
     { id: 3, name: "Mindful Haven", members: "15.2k", color: "bg-teal-500" },
   ];
+  useEffect(() => {
+    const fetchUserName = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/user/auth/anonymous-name`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          // 👇 If anonymousName exists, use it, otherwise fallback to normal name
+          setUserName(data.anonymousName || data.name || "User");
+        }
+      } catch (error) {
+        console.error("Failed to fetch user name:", error);
+      }
+    };
+
+    fetchUserName();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);

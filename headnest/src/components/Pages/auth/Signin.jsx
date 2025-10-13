@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../../../api/config";
+import { loginUser } from "../../../api/index";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -40,21 +40,17 @@ const Signin = () => {
     setLoading(true); // 👈 start loading
 
     try {
-      const res = await fetch(`${API_BASE_URL}/user/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+      // 👇 Use the loginUser function from index.js
+      const data = await loginUser({
+        email: email.toLowerCase().trim(),
+        password,
       });
 
-      if (!res.ok) {
-        // If backend returns 404 or a special message for non-existing user
-        if (res.status === 404) {
-          throw new Error("This email is not registered. Please sign up.");
-        }
-        throw new Error("Invalid credentials");
-      }
+      // 👇 Log backend response for debugging
+      console.log("Backend response:", data);
+      console.log("Login successful!");
 
-      const data = await res.json();
+      // 👇 Store token
       localStorage.setItem("token", data.token);
 
       // Optional: backend can include a `returningUser` flag
@@ -64,14 +60,17 @@ const Signin = () => {
         console.log("🆕 First-time login");
       }
 
+      // 👇 Navigate to dashboard
       navigate("/dashboard");
     } catch (err) {
+      // 👇 Detailed error logging
+      console.error("Login error:", err);
+      console.error("Error message:", err.message);
       alert(err.message);
     } finally {
       setLoading(false); // 👈 stop loading
     }
   };
-
   return (
     <div className="flex min-h-screen bg-gray-50 md:flex-row flex-col justify-center gap-10 md:gap-0">
       {/* Left Section */}
@@ -125,7 +124,10 @@ const Signin = () => {
                     checked={showPassword}
                     onChange={() => setShowPassword(!showPassword)}
                   />
-                  <label htmlFor="showPassword" className="text-sm text-gray-600">
+                  <label
+                    htmlFor="showPassword"
+                    className="text-sm text-gray-600"
+                  >
                     Show Password
                   </label>
                 </div>
@@ -134,7 +136,7 @@ const Signin = () => {
               <Button
                 type="submit"
                 disabled={loading} // 👈 disabled while loading
-                className={`w-full bg-[#38485C] text-white cursor-pointer hover:bg-gray-700 ${
+                className={`w-full bg-[#38485C] text-white rounded-full cursor-pointer hover:bg-gray-700 ${
                   loading ? "opacity-70 cursor-not-allowed" : ""
                 }`}
               >
@@ -142,14 +144,19 @@ const Signin = () => {
               </Button>
             </form>
 
-            {/* Social Login */}
-            <div className="flex flex-col items-center space-y-3">
-              <p className="text-gray-500 text-sm">or sign in with</p>
-              <div className="flex gap-6 text-2xl text-gray-700">
-                <FaApple className="cursor-pointer hover:text-black transition" />
-                <FaGoogle className="cursor-pointer hover:text-red-500 transition" />
-              </div>
+            <div className="flex justify-center items-center gap-3 mt-4">
+              <div className="w-24 h-[1px] bg-gray-400"></div>
+              <p className="text-gray-600 text-sm">Or sign in with</p>
+              <div className="w-24 h-[1px] bg-gray-400"></div>
             </div>
+
+            <Button
+              type="button"
+              className="w-full bg-[#F9F9F9] border border-[#38485C] rounded-full text-[#38485C] mt-2 hover:bg-gray-100 flex items-center justify-center gap-2"
+            >
+              <FaGoogle />
+              Continue with Google
+            </Button>
 
             {/* Sign Up */}
             <div className="text-center pt-4">
@@ -158,7 +165,7 @@ const Signin = () => {
               </p>
               <Button
                 onClick={() => navigate("/signup")}
-                className="w-full bg-[#38485C] text-white hover:bg-gray-700"
+                className="w-full bg-[#38485C] text-white hover:bg-gray-700 rounded-full"
               >
                 SIGN UP
               </Button>

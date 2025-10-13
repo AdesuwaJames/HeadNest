@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "./DashboardLayout";
 import Sidebar from "../../sidebar";
+import MaleTherapist from "../../../assets/maleTherapist.jpg";
+import FemaleTherapist from "../../../assets/femaleTherapist.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,13 +14,13 @@ const therapists = [
     id: 1,
     name: "Dr. John Doe",
     specialization: "Therapy A",
-    image: "/images/therapist1.jpg",
+    image: MaleTherapist,
   },
   {
     id: 2,
     name: "Dr. Jane Doe",
     specialization: "Therapy B",
-    image: "/images/therapist2.jpg",
+    image: FemaleTherapist,
   },
   // ...
 ];
