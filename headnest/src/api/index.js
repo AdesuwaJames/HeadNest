@@ -1,19 +1,5 @@
 import { API_BASE_URL } from "./config";
 
-//Register a user
-export const registerUser = async (userData) => {
-  const response = await fetch(`${API_BASE_URL}/user/auth/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  });
-  if (!response.ok) {
-    throw new Error("Registration failed");
-  }
-  return response.json();
-};
 
 //Login
 export const loginUser = async (credentials) => {
