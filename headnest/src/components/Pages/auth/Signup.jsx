@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import PrivacyPolicy from "@/components/Pages/privacyPolicy/privacyPolicy"; // 👈 import existing page
+import { registerUser } from "../../../api/index";
+import { googleAuthRedirect } from "../../../api/index";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +15,7 @@ const Register = () => {
   const [agreePolicy, setAgreePolicy] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPolicyModal, setShowPolicyModal] = useState(false); // modal state
 
@@ -20,7 +23,9 @@ const Register = () => {
 
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
   const validatePassword = (password) =>
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/.test(password);
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/.test(
+      password
+    );
 
   const isFormValid =
     validateEmail(email) &&
@@ -37,16 +42,26 @@ const Register = () => {
       return setError(
         "Password must be at least 8 characters and include letters, numbers, and special characters."
       );
-    if (password !== confirmPassword) return setError("Passwords do not match.");
+    if (password !== confirmPassword)
+      return setError("Passwords do not match.");
     if (!agreePolicy) return setError("You must agree to the Privacy Policy.");
 
     try {
       setLoading(true);
 
-      // 🚀 Temporarily skip backend and just navigate
-      localStorage.setItem("token", "dummy-token");
-      navigate("/welcome");
+      // ✅ Send data to backend
+      const response = await registerUser({ email, password });
+      console.log("Signup response:", response);
+      // Assuming the backend returns a token or user object
+      if (response?.token) {
+        localStorage.setItem("token", response.token);
+      }
 
+      // ✅ Navigate to welcome page after successful signup
+      navigate("/welcome");
+    } catch (err) {
+      console.error(err);
+      setError("Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -85,8 +100,8 @@ const Register = () => {
                 required
               />
               <p className="text-xs text-gray-500 mt-1">
-                Password must be at least 8 characters long and include letters, numbers,
-                and special characters.
+                Password must be at least 8 characters long and include letters,
+                numbers, and special characters.
               </p>
             </div>
 
@@ -148,10 +163,15 @@ const Register = () => {
 
           <Button
             type="button"
-            disabled
-            className="w-full bg-[#F9F9F9] border border-[#38485C] text-[#38485C] mt-2 opacity-50 cursor-not-allowed"
+            onClick={() => {
+              setGoogleLoading(true);
+              googleAuthRedirect();
+            }}
+            className="w-full bg-[#F9F9F9] border border-[#38485C] text-[#38485C] mt-2 hover:bg-gray-100 flex items-center justify-center gap-2"
+            disabled={googleLoading}
           >
             <FaGoogle />
+            {googleLoading ? "Redirecting..." : "Sign up with Google"}
           </Button>
         </CardContent>
       </Card>

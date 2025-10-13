@@ -4,6 +4,9 @@ import Home from "./components/Pages/home/home";
 import Login from "./components/Pages/auth/Signin";
 import Register from "./components/Pages/auth/Signup";
 import Welcome from "./components/Pages/auth/Welcome";
+import AboutUs from "./Components/Pages/about/AboutUs";
+import ComingSoon from "./Components/Pages/comingSoon";
+import TermsOfService from "./Components/Pages/legal/TermsOfService";
 import MentalWellnessDashboard from "./components/Pages/dashboard/HonePage";
 import { SidebarProvider } from "./components/ui/sidebar";
 import NameChoice from "./components/Pages/auth/NameChoice";
@@ -21,6 +24,8 @@ import CommunitySelection from "./components/Pages/community/community";
 import TherapyChat from "./components/Pages/therapychat/therapychat";
 import TherapistProfile from "./components/Pages/TherapistProfile/TherapistProfile";
 import MoodTracker from "./components/Pages/dashboard/MoodTracker";
+import GoogleCallback from "./components/Pages/AuthCallback"
+import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 
 function App() {
@@ -73,9 +78,11 @@ function App() {
       <Route
         path="/dashboard"
         element={
+          <ProtectedRoute>
           <SidebarProvider>
             <MentalWellnessDashboard />
           </SidebarProvider>
+          </ProtectedRoute>
         }
       />
       <Route
@@ -143,12 +150,16 @@ function App() {
 
       {/* Other Pages */}
       <Route path="/edit-profile" element={<EditProfile />} />
-      <Route path="/chat" element={<Chat />} />
+      <Route path="/community/:communityName" element={<Chat />} />
       <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/journal" element={<JournalScreen />} />
       <Route path="/community" element={<CommunitySelection />} />
       <Route path="/therapy-chat" element={<TherapyChat />} />
+      <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/coming-soon" element={<ComingSoon />} />
+      <Route path="/terms-of-service" element={<TermsOfService />} />
+      <Route path="/auth-callback" element={<GoogleCallback />} />
 
       {/* 404 Page */}
       <Route

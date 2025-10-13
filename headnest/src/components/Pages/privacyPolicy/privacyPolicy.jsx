@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
 
   const navigate = useNavigate(); 
   const handleGoBack = () => {
-    navigate("/settings"); 
+    navigate("/"); 
   };
   
   

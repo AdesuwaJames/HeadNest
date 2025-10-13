@@ -13,10 +13,10 @@ import { Menu } from "lucide-react"; // instead of HiMenu
 
 const navItems = [
   { id: 1, name: "Home", link: "/dashboard" },
-  { id: 2, name: "About Us", link: "/about" },
+  { id: 2, name: "About Us", link: "/about-us" },
   { id: 3, name: "Services", link: "/services" },
   { id: 4, name: "Contact Us", link: "/contact" },
-  { id: 5, name: "Blog", link: "/blog" },
+  { id: 5, name: "Blog", link: "/coming-us" },
 ];
 
 const Header = () => {
@@ -106,33 +106,7 @@ const Header = () => {
                 </Button>
               </div>
 
-              {/* Extra Links */}
-              <div className="mt-8 flex flex-col space-y-3 text-sm">
-                <a
-                  href="https://github.com/shadcn/ui"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-gray-800"
-                >
-                  Docs
-                </a>
-                <a
-                  href="https://ui.shadcn.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-gray-800"
-                >
-                  Components
-                </a>
-                <a
-                  href="https://github.com/shadcn/ui/issues"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-gray-800"
-                >
-                  Help
-                </a>
-              </div>
+             
             </SheetContent>
           </Sheet>
         </div>

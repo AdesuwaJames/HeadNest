@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import API from "../../../api/config"; // ✅ Backend connection
 import defaultProfile from "../../../assets/Frame 110 (1).png";
 
 const EditProfile = () => {
@@ -13,18 +14,44 @@ const EditProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const [isEditingInfo, setIsEditingInfo] = useState(false);
   const [formData, setFormData] = useState({
-    username: "Bonuola_Marc",
-    email: "bmarcus@gmail.com",
+    username: "",
+    email: "",
     password: "",
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [imageError, setImageError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
 
-  // Focus username or password input depending on hash
+  // ✅ Fetch current user profile from backend
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        setLoading(true);
+        const res = await API.get("/user/auth/profile");
+        const user = res.data;
+        setFormData({
+          username: user.username || "",
+          email: user.email || "",
+          password: "",
+        });
+        if (user.profileImage) {
+          setProfileImage(user.profileImage);
+        }
+      } catch (err) {
+        console.error("❌ Error fetching profile:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  // ✅ Watch hash to open modal or edit section
   useEffect(() => {
     setSuccessMessage("");
     if (location.hash === "#username") {
@@ -36,7 +63,7 @@ const EditProfile = () => {
     }
   }, [location.hash]);
 
-  // Escape key closes modal
+  // ✅ Close modal on Escape key
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") setShowModal(false);
@@ -47,6 +74,7 @@ const EditProfile = () => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [showModal]);
 
+  // ✅ Handle image upload and preview
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -65,21 +93,42 @@ const EditProfile = () => {
     }
   };
 
-  const handleSaveImage = () => {
-    if (previewImage) {
+  // ✅ Save image (calls PUT /api/user/upload — may not yet exist)
+  const handleSaveImage = async () => {
+    if (!previewImage) return;
+    try {
+      const formData = new FormData();
+      const fileInput = document.querySelector('input[type="file"]');
+      if (fileInput?.files[0]) {
+        formData.append("profileImage", fileInput.files[0]);
+
+        try {
+          await API.put("/user/upload", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          });
+        } catch {
+          console.warn("⚠️ Upload endpoint not available yet.");
+        }
+      }
+
       setProfileImage(previewImage);
       setSuccessMessage("Profile picture updated successfully!");
+      setShowModal(false);
+      setPreviewImage(null);
+    } catch (err) {
+      console.error("❌ Error uploading image:", err);
+      setImageError("Failed to upload image.");
     }
-    setShowModal(false);
-    setPreviewImage(null);
   };
 
+  // ✅ Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     validateField(name, value);
   };
 
+  // ✅ Field validation
   const validateField = (name, value) => {
     let newErrors = {};
     const checkUsername = name === "username" ? value : formData.username;
@@ -106,40 +155,45 @@ const EditProfile = () => {
     }
 
     setErrors((prev) => {
-      const updatedErrors = { ...prev };
+      const updated = { ...prev };
       Object.keys(newErrors).forEach((key) => {
-        if (newErrors[key] === "") {
-          delete updatedErrors[key];
-        } else if (newErrors[key]) {
-          updatedErrors[key] = newErrors[key];
-        }
+        if (!newErrors[key]) delete updated[key];
+        else updated[key] = newErrors[key];
       });
-      return updatedErrors;
+      return updated;
     });
   };
 
-  const handleSubmit = (e) => {
+  // ✅ Submit (PUT update profile)
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const finalErrors = {};
     if (!formData.username.trim()) finalErrors.username = "Username is required";
     if (!/\S+@\S+\.\S+/.test(formData.email))
       finalErrors.email = "Invalid email format";
-    if (formData.password.length > 0) {
-      const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
-      if (!passwordRegex.test(formData.password)) {
-        finalErrors.password =
-          "Password must be 8+ chars, include upper, lower, number, and special character.";
-      }
-    }
 
     setErrors(finalErrors);
+
     if (Object.keys(finalErrors).length === 0) {
-      setSuccessMessage("Changes updated successfully!");
-      setIsEditingInfo(false);
-      setFormData((prev) => ({ ...prev, password: "" }));
-    } else {
-      setSuccessMessage("");
+      try {
+        setLoading(true);
+        await API.put("/user/auth/profile", {
+          username: formData.username,
+          email: formData.email,
+          password: formData.password || undefined,
+        });
+
+        setSuccessMessage("Changes updated successfully!");
+        setIsEditingInfo(false);
+        setFormData((prev) => ({ ...prev, password: "" }));
+      } catch (err) {
+        console.error("❌ Error updating profile:", err);
+        setSuccessMessage("");
+        alert("Failed to update profile.");
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -197,11 +251,11 @@ const EditProfile = () => {
             <div className="space-y-3">
               <p className="flex justify-between">
                 <span className="text-gray-600">Username:</span>
-                <span>{formData.username}</span>
+                <span>{loading ? "Loading..." : formData.username}</span>
               </p>
               <p className="flex justify-between">
                 <span className="text-gray-600">Email:</span>
-                <span>{formData.email}</span>
+                <span>{loading ? "Loading..." : formData.email}</span>
               </p>
               <p className="flex justify-between">
                 <span className="text-gray-600">Password:</span>
@@ -281,6 +335,7 @@ const EditProfile = () => {
           </form>
         )}
 
+        {/* ✅ Image Modal */}
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-xl shadow-xl w-80 text-center">

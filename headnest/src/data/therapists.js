@@ -1,10 +1,14 @@
+import React from "react";
+import MaleTherapist from "../assets/maleTherapist.jpg";
+import FemaleTherapist from "../assets/femaleTherapist.jpg";
+
 // src/data/therapists.js
 const therapists = [
   {
     id: 1,
     name: "Dr. John Doe",
     specialization: "Therapy A",
-    image: "/images/therapist1.jpg",
+    image: MaleTherapist,
     about:
       "I am a mental health professional that helps individuals cope with stress, anxiety, and depression. My approach is empathetic, evidence-based, and tailored to your needs.",
     specialties: ["Anxiety", "Stress Management", "Depression"],
@@ -19,7 +23,7 @@ const therapists = [
     id: 2,
     name: "Dr. Jane Doe",
     specialization: "Therapy B",
-    image: "/images/therapist2.jpg",
+    image: FemaleTherapist,
     about:
       "I help people manage trauma, grief, and emotional imbalance using holistic approaches and talk therapy.",
     specialties: ["Trauma", "Grief Counseling", "Mindfulness"],

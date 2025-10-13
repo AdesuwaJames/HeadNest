@@ -21,7 +21,7 @@ export default function MoodTracker() {
     setIsOpen(false);
   };
 
-  // ✅ Handle responsiveness for sidebar
+  // Handle responsiveness for sidebar
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
     handleResize();
@@ -32,12 +32,12 @@ export default function MoodTracker() {
   const content = (
     <div className="w-full min-h-screen overflow-x-auto bg-gray-50">
       <div className="min-w-[400px] sm:min-w-[500px] md:min-w-[640px] lg:min-w-0 flex">
-        {/* ✅ Sidebar for mobile */}
+        {/* Sidebar for mobile */}
         {isMobile && (
           <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         )}
 
-        {/* ✅ Hamburger button for mobile */}
+        {/*  Hamburger button for mobile */}
         {isMobile && (
           <button
             className="lg:hidden fixed top-4 left-4 z-50 bg-[#38485C] text-white p-2 rounded-md shadow"
@@ -48,7 +48,7 @@ export default function MoodTracker() {
           </button>
         )}
 
-        {/* ✅ Page Content */}
+        {/*  Page Content */}
         <div className="flex-1 flex flex-col items-center justify-center px-4 py-10 w-full">
           <div className="w-full max-w-5xl">
             {/* Header */}
@@ -120,7 +120,7 @@ export default function MoodTracker() {
                 onClick={() => navigate("/dashboard")}
                 className="bg-slate-700 hover:bg-slate-800 text-white font-semibold px-12 py-4 rounded-full transition-colors shadow-md"
               >
-                Back to homepage
+                Back to Home
               </button>
             </div>
           </div>
